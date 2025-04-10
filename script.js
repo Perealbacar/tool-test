@@ -78,50 +78,45 @@ document.addEventListener('DOMContentLoaded', () => {
         const entries = [];
         const bracketTimeRegex = /^\s*\[(\d{1,2}):(\d{2})\]\s*(.*)/;
 
+        console.log("--- Dentro de parseBracketFormat ---"); // Log añadido
         for (const line of lines) {
+            console.log(`Procesando linea: "${line}"`); // Log añadido
             const match = line.match(bracketTimeRegex);
+            console.log(` Match resultado:`, match); // Log añadido
             if (match) {
                 const minutes = parseInt(match[1], 10);
                 const seconds = parseInt(match[2], 10);
                 const textContent = match[3].trim();
+                console.log(`  -> minutes: ${minutes}, seconds: ${seconds}, text: "${textContent}"`); // Log añadido
 
                 if (!isNaN(minutes) && !isNaN(seconds) && textContent) {
                     entries.push({
                         startTime: (minutes * 60) + seconds,
-                        // No endTime en este formato, podemos omitirlo o ponerlo igual a startTime
                         text: textContent
                     });
+                    console.log(`  -> Entrada AÑADIDA`); // Log añadido
+                } else {
+                    console.warn(`  -> Entrada OMITIDA (isNaN o texto vacío)`); // Log añadido
                 }
+            } else {
+                console.warn(`  -> La línea NO COINCIDIÓ con la regex`); // Log añadido
             }
-            // Ignoramos líneas que no coincidan con el formato
         }
-        // Ya están ordenadas por naturaleza del formato línea a línea
-        console.log("Parsed as Bracket Format:", entries);
+        console.log("--- Fin parseBracketFormat. Entries:", entries);
         return entries;
     }
 
     // Detecta el formato y llama al parser adecuado
+    // --- Reemplazo TEMPORAL para Debug ---
     function parseTranscript(text) {
-        const lines = text.trim().split(/[\r\n]+/).filter(line => line.trim() !== ''); // Obtener líneas no vacías
-        if (lines.length === 0) return [];
-
-        // Intentar detectar formato VTT (buscar '-->')
-        if (lines.some(line => line.includes('-->'))) {
-            return parseVTT(text);
-        }
-        // Intentar detectar formato [MM:SS] (buscar '[xx:xx]' al inicio)
-        else if (lines.some(line => /^\s*\[\d{1,2}:\d{2}\]/.test(line))) {
-            return parseBracketFormat(text);
-        }
-        // Si no se detecta ninguno
-        else {
-            console.warn("Formato de transcripción no reconocido automáticamente.");
-            // Podríamos intentar un fallback o simplemente devolver vacío/error
-            // Por ahora, intentamos VTT como fallback si hay texto.
-            if (text.length > 10) return parseVTT(text); // Intenta VTT si hay algo
-            return [];
-        }
+        console.log("--- FORZANDO parseBracketFormat para debug ---");
+        // Directamente llama al parser que debería funcionar para [MM:SS]
+        const result = parseBracketFormat(text);
+        console.log("Resultado de parseBracketFormat:", result);
+        return result;
+        // Nota: Esto romperá el formato VTT mientras esté activo.
     }
+    // --- Fin del Reemplazo TEMPORAL ---
 
     // --- FUNCIONES DE VISUALIZACIÓN (displayVideo sin cambios) ---
     function displayVideo(url) {
