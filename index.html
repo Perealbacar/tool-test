@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Herramienta Interna de Guiones V2</title>
+    <title>Herramienta Interna de Guiones V3</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,14 +22,26 @@
                     <input type="url" id="tiktok-url" placeholder="Pega aquí la URL del video...">
                 </div>
                 <div class="input-group">
-                    <label for="transcript-paste">Pega aquí la transcripción (formato VTT):</label>
-                    <textarea id="transcript-paste" rows="8" placeholder="Ejemplo:
+                    <label for="transcript-paste">Pega aquí la transcripción (Formatos: VTT o [MM:SS] Texto):</label>
+                    <textarea id="transcript-paste" rows="8" placeholder="Ej:
+                              [00:00] Hola a todos
+                              [00:02] Bienvenidos
+                              --- O ---
                               00:00:00.000 --> 00:00:02.500
-Hola a todos
-
-00:00:03.100 --> 00:00:05.800
-Bienvenidos al video"></textarea>
+Hola a todos"></textarea>
                 </div>
+
+                <!-- Botones para herramientas externas -->
+                <div class="external-links">
+                    <p>¿Necesitas generar la transcripción primero?</p>
+                    <a href="https://script.tokaudit.io/" target="_blank" rel="noopener noreferrer" class="external-link-btn">
+                        Obtener Transcripción (TokAudit)
+                    </a>
+                    <a href="https://www.socialplug.io/free-tools/tiktok-transcript-generator" target="_blank" rel="noopener noreferrer" class="external-link-btn">
+                        Obtener Transcripción (SocialPlug)
+                    </a>
+                </div>
+
                 <button id="process-btn">Procesar y Mostrar</button>
                 <p class="warning"><strong>Importante:</strong> El salto de tiempo automático en el video haciendo clic en la transcripción <strong>NO</strong> funciona con los embeds de TikTok. Solo se resaltará la fila.</p>
             </section>
