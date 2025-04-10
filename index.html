@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramienta Interna de Guiones V2</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Historial</h2>
+            <ul id="history-list"></ul>
+        </aside>
+
+        <main class="main-content">
+            <h1>Guionista desde Transcripción Manual</h1>
+
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="tiktok-url">Enlace del video de TikTok:</label>
+                    <input type="url" id="tiktok-url" placeholder="Pega aquí la URL del video...">
+                </div>
+                <div class="input-group">
+                    <label for="transcript-paste">Pega aquí la transcripción (formato VTT):</label>
+                    <textarea id="transcript-paste" rows="8" placeholder="Ejemplo:
+                              00:00:00.000 --> 00:00:02.500
+Hola a todos
+
+00:00:03.100 --> 00:00:05.800
+Bienvenidos al video"></textarea>
+                </div>
+                <button id="process-btn">Procesar y Mostrar</button>
+                <p class="warning"><strong>Importante:</strong> El salto de tiempo automático en el video haciendo clic en la transcripción <strong>NO</strong> funciona con los embeds de TikTok. Solo se resaltará la fila.</p>
+            </section>
+
+            <section class="display-area" id="display-area" style="display: none;">
+                <div class="video-container" id="video-container">
+                    <h2>Video Original</h2>
+                    <div id="tiktok-embed"></div>
+                </div>
+                <div class="tables-container">
+                    <div class="table-wrapper">
+                        <h2>Transcripción Original</h2>
+                        <table id="transcript-table">
+                            <thead>
+                                <tr>
+                                    <th>Tiempo Inicio</th>
+                                    <th>Frase Original</th>
+                                </tr>
+                            </thead>
+                            <tbody id="transcript-body"></tbody>
+                        </table>
+                    </div>
+                    <div class="table-wrapper">
+                        <h2>Nuevo Guion</h2>
+                        <table id="script-table">
+                            <thead>
+                                <tr>
+                                    <th>Tiempo Inicio</th>
+                                    <th>Tu Guion</th>
+                                </tr>
+                            </thead>
+                            <tbody id="script-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Script de TikTok para Embeber -->
+    <script async src="https://www.tiktok.com/embed.js"></script>
+    <!-- Tu script personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>
